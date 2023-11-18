@@ -1,6 +1,5 @@
 
 import { useState } from 'react'
-
 import styles from './Register.module.css'
 const Register = () => {
 
@@ -10,13 +9,6 @@ const Register = () => {
         email: '',
         password: '',
     });
-
-    const errors = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-    }
 
     const [firstNameError, setFirtNameError] = useState('');
     const [lastNameError, setLastNameError] = useState('');

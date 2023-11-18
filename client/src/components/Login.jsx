@@ -7,6 +7,9 @@ const Login = () => {
         password: ''
     });
 
+    const [passwordError, setPasswodError] = useState('');
+    const [emailError, setEmailError] = useState('');
+
     function handleLogin(e) {
         e.preventDefault();
     }
@@ -17,6 +20,25 @@ const Login = () => {
             ...loginData,
             [name]: value
         })
+    }
+
+    const emailValidator = () => {
+        let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/g;
+        if (!loginData.email.match(emailRegex) || loginData.email.trim() === '') {
+            setEmailError("Enter a valid Email address!")
+        } else {
+            setEmailError("");
+        }
+    }
+
+    const passwordValidator = () => {
+        let passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[@#+\-_.!,? *^]).{6,48}$/g;
+        if (!loginData.password.match(passwordRegex) || loginData.password.trim() === '') {
+            setPasswodError("The password must contain at least one special char, digit, and letter\r\n"
+                + "and be between 6 and 48 characters long!")
+        } else {
+            setPasswodError('');
+        }
     }
 
     return (
@@ -30,9 +52,13 @@ const Login = () => {
                         name="email"
                         placeholder='Email'
                         value={loginData.email}
+                        onBlur={emailValidator}
                         onChange={handleChange}
                         className={styles["form-input"]}
                     />
+                    {emailError &&
+                        (<p className='email-error' style={{ color: 'red', fontSize: '14px' }}>
+                            {emailError}</p>)}
                 </label>
                 <br />
                 <label className={styles["form-label"]}>
@@ -42,9 +68,13 @@ const Login = () => {
                         name="password"
                         placeholder='Password'
                         value={loginData.password}
+                        onBlur={passwordValidator}
                         onChange={handleChange}
                         className={styles["form-input"]}
                     />
+                    {passwordError &&
+                        (<p className='password-error' style={{ color: 'red', fontSize: '14px' }}>
+                            {passwordError}</p>)}
                 </label>
                 <br />
                 <button type="submit" className={styles["submit-button"]}>
