@@ -8,7 +8,7 @@ const Navigation = () => {
             </a>
             <ul id="menu">
                 <li className="nav-about-us" role="presentation">
-                    <Link to="#">Login</Link>
+                    <Link to="/login">Login</Link>
                 </li>
                 <li className="nav-about-us" role="presentation">
                     <Link to="/register">Register</Link>

@@ -72,7 +72,7 @@ const Register = () => {
 
     return (
         <div className={styles.container}>
-            <h2>Registration Form</h2>
+            <h2>Register</h2>
             <form onSubmit={handleRegister}>
                 <label className={styles["form-label"]}>
                     First Name:
