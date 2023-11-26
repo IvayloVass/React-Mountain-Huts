@@ -23,3 +23,26 @@ export const login = async (credentals) => {
     }
 
 }
+
+export const register = async (registrationData) => {
+
+    try {
+        let response = await fetch(`${baseUrl}register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(registrationData)
+        })
+
+        if (response.ok) {
+            let result = await response.json();
+            console.log(result);
+            return result;
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}

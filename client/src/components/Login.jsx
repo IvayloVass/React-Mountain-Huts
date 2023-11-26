@@ -23,7 +23,7 @@ const Login = () => {
     async function handleLogin(e) {
         e.preventDefault();
 
-        if (emailError || passwordError) {
+        if (!loginData.email || !loginData.password) {
             setLoginMsg("Invalid email or password!");
             setAuth({});
 
@@ -73,7 +73,7 @@ const Login = () => {
         <div className={styles["login-container"]}>
             <h2>Login</h2>
             {loginMsg &&
-                (<p className='success' style={{
+                (<p style={{
                     color: 'green', fontSize: '20px', marginTop: '10px',
                     border: '1px solid green',
                     borderRadius: '5px'

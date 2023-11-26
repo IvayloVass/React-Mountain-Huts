@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react';
 
 const Navigation = () => {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [IsAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
         if (sessionStorage.getItem('accessToken') !== null) {
-            setIsLoggedIn(true);
+            setIsAuthenticated(true);
         }
-    }, [isLoggedIn]);
+    }, [IsAuthenticated]);
 
     return (
         <nav className="main-nav overlay clearfix">
@@ -20,7 +20,7 @@ const Navigation = () => {
                 <li className="nav-home nav-current" role="presentation">
                     <Link to="/">Home</Link>
                 </li>
-                {isLoggedIn ?
+                {IsAuthenticated ?
                     (
                         <>
                             <li className="nav-article-example" role="presentation">

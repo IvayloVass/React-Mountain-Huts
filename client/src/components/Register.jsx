@@ -1,9 +1,11 @@
-
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { register } from '../services/authService';
+
 import styles from './Register.module.css'
 const Register = () => {
 
-    const [formData, setFormData] = useState({
+    const [regData, setFormData] = useState({
         firstName: '',
         lastName: '',
         email: '',
@@ -14,21 +16,35 @@ const Register = () => {
     const [lastNameError, setLastNameError] = useState('');
     const [passwordError, setPasswodError] = useState('');
     const [emailError, setEmailError] = useState('');
+    const [registerMsg, setRegisterMsg] = useState('');
+    const [auth, setAuth] = useState({});
+    const navigate = useNavigate();
 
-    function handleRegister(e) {
+    async function handleRegister(e) {
         e.preventDefault();
+
+        if (!regData.firstName || !regData.lastName || !regData.email || !regData.password) {
+            setRegisterMsg('All fields are required!');
+            setAuth({});
+            return;
+        }
+
+        let registerAuth = await register(regData);
+        setAuth(registerAuth);
+        sessionStorage.setItem('accessToken', registerAuth.accessToken);
+        navigate('/');
     }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
-            ...formData,
+            ...regData,
             [name]: value,
         });
     };
 
     const firstNameValidator = () => {
-        if (formData.firstName.trim().length < 2 || formData.firstName.trim().length > 64) {
+        if (regData.firstName.trim().length < 2 || regData.firstName.trim().length > 64) {
             setFirtNameError('First Name must be between 2 and 65 characters!');
         } else {
             setFirtNameError('');
@@ -36,7 +52,7 @@ const Register = () => {
     };
 
     const lastNameValidator = () => {
-        if (formData.lastName.trim().length < 2 || formData.lastName.trim().length > 64) {
+        if (regData.lastName.trim().length < 2 || regData.lastName.trim().length > 64) {
             setLastNameError('Last Name must be between 2 and 65 characters!');
         } else {
             setLastNameError('');
@@ -45,7 +61,7 @@ const Register = () => {
 
     const emailValidator = () => {
         let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/g;
-        if (!formData.email.match(emailRegex) || formData.email.trim() === '') {
+        if (!regData.email.match(emailRegex) || regData.email.trim() === '') {
             setEmailError("Enter a valid Email address!")
         } else {
             setEmailError("");
@@ -54,7 +70,7 @@ const Register = () => {
 
     const passwordValidator = () => {
         let passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[@#+\-_.!,? *^]).{6,48}$/g;
-        if (!formData.password.match(passwordRegex) || formData.password.trim() === '') {
+        if (!regData.password.match(passwordRegex) || regData.password.trim() === '') {
             setPasswodError("The password must contain at least one special char, digit, and letter\r\n"
                 + "and be between 6 and 48 characters long!")
         } else {
@@ -65,6 +81,13 @@ const Register = () => {
     return (
         <div className={styles.container}>
             <h2>Register</h2>
+            {registerMsg &&
+                (<p style={{
+                    color: 'green', fontSize: '20px', marginTop: '10px',
+                    border: '1px solid green',
+                    borderRadius: '5px'
+                }}>
+                    {registerMsg}</p>)}
             <form onSubmit={handleRegister}>
                 <label className={styles["form-label"]}>
                     First Name:
@@ -72,7 +95,7 @@ const Register = () => {
                         type="text"
                         name="firstName"
                         placeholder='First Name'
-                        value={formData.firstName}
+                        value={regData.firstName}
                         onChange={handleChange}
                         onBlur={firstNameValidator}
                         className={styles["form-input"]}
@@ -88,7 +111,7 @@ const Register = () => {
                         type="text"
                         name="lastName"
                         placeholder='Last Name'
-                        value={formData.lastName}
+                        value={regData.lastName}
                         onChange={handleChange}
                         onBlur={lastNameValidator}
                         className={styles["form-input"]}
@@ -104,7 +127,7 @@ const Register = () => {
                         type="email"
                         name="email"
                         placeholder='Email'
-                        value={formData.email}
+                        value={regData.email}
                         onChange={handleChange}
                         onBlur={emailValidator}
                         className={styles["form-input"]}
@@ -120,7 +143,7 @@ const Register = () => {
                         type="password"
                         name="password"
                         placeholder='Password'
-                        value={formData.password}
+                        value={regData.password}
                         onChange={handleChange}
                         onBlur={passwordValidator}
                         className={styles["form-input"]}
