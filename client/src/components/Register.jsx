@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 import { register } from '../services/authService';
 
 import styles from './Register.module.css'
@@ -17,7 +18,7 @@ const Register = () => {
     const [passwordError, setPasswodError] = useState('');
     const [emailError, setEmailError] = useState('');
     const [registerMsg, setRegisterMsg] = useState('');
-    const [auth, setAuth] = useState({});
+    const { setAuth } = useAuth();
     const navigate = useNavigate();
 
     async function handleRegister(e) {

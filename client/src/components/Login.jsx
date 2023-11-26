@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 
 import { login } from '../services/authService';
 
@@ -15,8 +16,8 @@ const Login = () => {
 
     const [passwordError, setPasswodError] = useState('');
     const [emailError, setEmailError] = useState('');
-    const [auth, setAuth] = useState({});
     const [loginMsg, setLoginMsg] = useState('');
+    const { setAuth } = useAuth();
 
     const navigate = useNavigate();
 
@@ -29,7 +30,6 @@ const Login = () => {
 
         } else {
             let respAuth = await login(loginData);
-
             if (typeof respAuth === 'undefined') {
                 setLoginMsg("Invalid email or password!");
                 return;

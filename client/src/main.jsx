@@ -9,18 +9,21 @@ import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
 
 import './assets/css/screen.css'
+import { AuthProvider } from './components/context/AuthContext.jsx';
 
 
 ReactDOM.createRoot(document.getElementsByClassName('site-wrapper')[0])
     .render(
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/hut/details/:id" element={<HutDetails />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route path='/logout' element={<Logout />} />
-                <Route path="/create/publication" element={<PublicationForm />} />
-            </Routes>
-        </BrowserRouter>
+        <AuthProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<App />} />
+                    <Route path="/hut/details/:id" element={<HutDetails />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path='/logout' element={<Logout />} />
+                    <Route path="/create/publication" element={<PublicationForm />} />
+                </Routes>
+            </BrowserRouter>
+        </AuthProvider>
     )
