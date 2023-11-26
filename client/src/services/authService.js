@@ -46,3 +46,22 @@ export const register = async (registrationData) => {
     }
 
 }
+
+export const logout = async (accessToken) => {
+    try {
+        let response = await fetch(`${baseUrl}logout`, {
+            method: 'GET',
+            headers: {
+                "X-Authorization": accessToken
+            }
+        });
+
+        if (response.status !== 200) {
+            throw new Error('Unauthorized');
+        }
+
+    } catch (error) {
+        console.error('Logout error:', error);
+        throw error;
+    }
+};

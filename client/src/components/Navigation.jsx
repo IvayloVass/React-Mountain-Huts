@@ -27,7 +27,7 @@ const Navigation = () => {
                                 <Link to="/create/publication">Create Publication</Link>
                             </li>
                             <li className="nav-about-us" role="presentation">
-                                <Link to="#">Logout</Link>
+                                <Link to="/logout">Logout</Link>
                             </li>
                         </>
                     )
