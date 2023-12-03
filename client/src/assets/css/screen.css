@@ -2786,12 +2786,11 @@ div#preloader {
 	height: 44px;
 }
 
-.close-details{
+.close-details, .edit-post, .delete-post{
 	margin: 0.8rem;
 }
 
-/* CSS for centering the .close-details element */
-.close-details-container {
+.close-details-container, .amend-post {
 	display: flex;
 	justify-content: center; /* Center horizontally */
 	align-items: center; /* Center vertically */
@@ -2810,8 +2809,23 @@ div#preloader {
   }
 
   .delete-post {
+	width: 100px;
+	text-align: center;
 	background-color: #E3963E; /* Background color */
 	color: rgb(255, 0, 0); /* Text color */
+	padding: 8px 15px; /* Padding around the text */
+	text-decoration: none; /* Remove underline by default */
+	border: none; /* Remove the border */
+	cursor: pointer; /* Change the cursor to a pointer on hover */
+	font-size: 16px; /* Adjust the font size */
+	transition: background-color 0.3s; /* Add a smooth background color transition on hover */
+  }
+
+  .edit-post {
+	width: 100px;
+	text-align: center;
+	background-color: #E3963E; /* Background color */
+	color: green; /* Text color */
 	padding: 8px 15px; /* Padding around the text */
 	text-decoration: none; /* Remove underline by default */
 	border: none; /* Remove the border */

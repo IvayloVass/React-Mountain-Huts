@@ -7,9 +7,11 @@ import Register from './components/Register.jsx';
 import PublicationForm from './components/PublicationForm.jsx';
 import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
+import EditPublication from './components/EditPublication.jsx';
 
 import './assets/css/screen.css'
 import { AuthProvider } from './components/context/AuthContext.jsx';
+
 
 
 ReactDOM.createRoot(document.getElementsByClassName('site-wrapper')[0])
@@ -23,6 +25,7 @@ ReactDOM.createRoot(document.getElementsByClassName('site-wrapper')[0])
                     <Route path="/login" element={<Login />} />
                     <Route path='/logout' element={<Logout />} />
                     <Route path="/create/publication" element={<PublicationForm />} />
+                    <Route path="/edit/publication/:id" element={<EditPublication />} />
                 </Routes>
             </BrowserRouter>
         </AuthProvider>

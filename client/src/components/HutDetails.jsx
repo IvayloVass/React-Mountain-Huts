@@ -90,9 +90,10 @@ const HutDetails = () => {
                             <Link className="close-details" to="/">Close Details</Link>
                             {
                                 showDeletedBtn &&
-                                (
+                                (<div className='amend-post'>
                                     <Link className="delete-post" onClick={onDeleteHandler}>Delete Post</Link>
-                                )
+                                    <Link className="edit-post" to={`/edit/publication/${id}`}>Edit Post</Link>
+                                </div>)
                             }
                         </div>
                     </article>

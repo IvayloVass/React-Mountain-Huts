@@ -81,3 +81,15 @@ export const deleteHut = async (methodType, postId, accessToken) => {
         console.log(error);
     }
 }
+
+export const editeHut = async (methodType, postId, data, accessToken) => {
+    try {
+        const response = await fetch(`${serverUrl}/${postId}`, buildOptions(methodType, data, accessToken));
+        if (response.ok) {
+            console.log(response);
+            return response;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
