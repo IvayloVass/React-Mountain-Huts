@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 import * as hutsService from '../services/hutsService.js';
 import styles from './PublicationForm.module.css';
 
@@ -23,19 +24,20 @@ const PublicationForm = () => {
     const [message, setMessage] = useState('');
 
     const navigate = useNavigate();
+    const { auth } = useAuth();
 
     function submitHandler(e) {
         e.preventDefault();
         console.log(formData);
 
         if (submitValidation()) {
-            hutsService.postHut(formData);
+            hutsService.postHut("POST", formData, auth.accessToken);
             setMessage('Post successfully created!');
 
             setTimeout(() => {
                 navigate('/')
             }, 1500);
-            
+
         } else {
             setMessage('Fill required fields!');
         }

@@ -1,4 +1,27 @@
-const serverUrl = "http://localhost:3030/jsonstore/huts";
+const serverUrl = "http://localhost:3030/data/huts";
+
+const buildOptions = (methodType, data, xAuth) => {
+    const options = {};
+
+    options.method = methodType;
+
+    if (data) {
+        options.body = JSON.stringify(data);
+        options.headers = {
+            "Content-Type": "application/json"
+        }
+    }
+
+    if (xAuth) {
+        options.headers = {
+            ...options.headers,
+            "X-Authorization": xAuth
+        }
+
+    }
+    return options;
+
+}
 
 export const getHuts = async () => {
     try {
@@ -34,15 +57,9 @@ export const getChoosenHut = async (id) => {
     }
 }
 
-export const postHut = async (publication) => {
+export const postHut = async (methodType, publication, accessToken) => {
     try {
-        const response = await fetch(serverUrl, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(publication)
-        });
+        const response = await fetch(serverUrl, buildOptions(methodType, publication, accessToken));
         if (response.ok) {
             const result = await response.json();
             console.log(result);
