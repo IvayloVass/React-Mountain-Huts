@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link, useParams } from 'react-router-dom';
 import * as hutsService from '../services/hutsService.js';
 import '../assets/css/screen.css'
@@ -6,12 +7,35 @@ import '../assets/css/screen.css'
 const HutDetails = () => {
 
     const [hutDetails, setHutDetails] = useState({});
+    const [showDeletedBtn, setShowDeletedBtn] = useState(false);
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
     const { id } = useParams();
 
     useEffect(() => {
         hutsService.getChoosenHut(id)
-            .then(result => setHutDetails(result));
-    }, []);
+            .then(result => {
+                setHutDetails(result);
+                if (result._ownerId === sessionStorage.getItem('userId')) {
+                    setShowDeletedBtn(true);
+                }
+            })
+    }, [id]);
+
+    async function onDeleteHandler() {
+        if (confirm("Are you sure you want to delete this post!")) {
+            const respStatus = await hutsService.deleteHut("DELETE", id, sessionStorage.getItem("accessToken"));
+            if (respStatus === 200) {
+                setMessage('The post is successfully deleted!');
+                setTimeout(() => {
+                    navigate('/')
+                }, 1500);
+
+            } else {
+                setMessage('Something went wrong, Please try again!');
+            }
+        }
+    }
 
     return (
         <>
@@ -35,6 +59,15 @@ const HutDetails = () => {
                 </div>
             </header>
             <main id="content" className="content" role="main">
+                {message &&
+                    (<p className='delete-msg' style={{
+                        color: 'green', fontSize: '20px', marginTop: '10px',
+                        border: '1px solid green',
+                        borderRadius: '5px',
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}>
+                        {message}</p>)}
                 <div className="wraps">
                     <article className="post featured">
                         <section className="post-content">
@@ -55,6 +88,12 @@ const HutDetails = () => {
                         </footer>
                         <div className="close-details-container">
                             <Link className="close-details" to="/">Close Details</Link>
+                            {
+                                showDeletedBtn &&
+                                (
+                                    <Link className="delete-post" onClick={onDeleteHandler}>Delete Post</Link>
+                                )
+                            }
                         </div>
                     </article>
                 </div>
@@ -64,5 +103,3 @@ const HutDetails = () => {
 }
 
 export default HutDetails;
-
-

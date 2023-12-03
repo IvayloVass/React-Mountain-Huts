@@ -69,3 +69,15 @@ export const postHut = async (methodType, publication, accessToken) => {
         console.log(error);
     }
 }
+
+export const deleteHut = async (methodType, postId, accessToken) => {
+    try {
+        const response = await fetch(`${serverUrl}/${postId}`, buildOptions(methodType, {}, accessToken));
+        if (response.ok) {
+            console.log(response.status);
+            return response.status;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
