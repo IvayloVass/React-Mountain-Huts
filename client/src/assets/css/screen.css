@@ -2787,7 +2787,7 @@ div#preloader {
 }
 
 .close-details{
-	margin: 0.5rem;
+	margin: 0.8rem;
 }
 
 /* CSS for centering the .close-details element */
@@ -2801,7 +2801,18 @@ div#preloader {
   .close-details {
 	background-color: #E3963E; /* Background color */
 	color: #fff; /* Text color */
-	padding: 10px 20px; /* Padding around the text */
+	padding: 8px 15px; /* Padding around the text */
+	text-decoration: none; /* Remove underline by default */
+	border: none; /* Remove the border */
+	cursor: pointer; /* Change the cursor to a pointer on hover */
+	font-size: 16px; /* Adjust the font size */
+	transition: background-color 0.3s; /* Add a smooth background color transition on hover */
+  }
+
+  .delete-post {
+	background-color: #E3963E; /* Background color */
+	color: rgb(255, 0, 0); /* Text color */
+	padding: 8px 15px; /* Padding around the text */
 	text-decoration: none; /* Remove underline by default */
 	border: none; /* Remove the border */
 	cursor: pointer; /* Change the cursor to a pointer on hover */

@@ -14,6 +14,7 @@ const Logout = () => {
         logout(accessToken);
         setAuth({});
         sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("userId");
         navigate('/');
     }, [])
 

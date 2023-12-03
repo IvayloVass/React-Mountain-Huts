@@ -36,6 +36,7 @@ const Login = () => {
             }
             setAuth(respAuth);
             sessionStorage.setItem('accessToken', respAuth.accessToken);
+            sessionStorage.setItem('userId', respAuth._id);
             navigate('/');
         }
 
