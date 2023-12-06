@@ -12,6 +12,7 @@ import { AuthProvider } from './components/context/AuthContext.jsx';
 import ProtectedRoutes from './components/guard/ProtectedRoutes.jsx';
 
 import './assets/css/screen.css'
+import NotFound from './components/NotFound.jsx';
 
 
 
@@ -29,6 +30,7 @@ ReactDOM.createRoot(document.getElementsByClassName('site-wrapper')[0])
                         <Route path="/edit/publication/:id" element={<EditPublication />} />
                         <Route path='/logout' element={<Logout />} />
                     </Route>
+                    <Route path='*' element={<NotFound />} />
                 </Routes>
             </BrowserRouter>
         </AuthProvider>
