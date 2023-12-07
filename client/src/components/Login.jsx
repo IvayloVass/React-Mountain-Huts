@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 
 import { login } from '../services/authService';
-
+import Navigation from '../components/Navigation'
 import styles from './Login.module.css';
 
 
@@ -71,53 +71,56 @@ const Login = () => {
     }
 
     return (
-        <div className={styles["login-container"]}>
-            <h2>Login</h2>
-            {loginMsg &&
-                (<p style={{
-                    color: 'green', fontSize: '20px', marginTop: '10px',
-                    border: '1px solid green',
-                    borderRadius: '5px'
-                }}>
-                    {loginMsg}</p>)}
-            <form onSubmit={handleLogin}>
-                <label className={styles["form-label"]}>
-                    Email:
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder='Email'
-                        value={loginData.email}
-                        onBlur={emailValidator}
-                        onChange={handleChange}
-                        className={styles["form-input"]}
-                    />
-                    {emailError &&
-                        (<p className='email-error' style={{ color: 'red', fontSize: '14px' }}>
-                            {emailError}</p>)}
-                </label>
-                <br />
-                <label className={styles["form-label"]}>
-                    Password:
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder='Password'
-                        value={loginData.password}
-                        onBlur={passwordValidator}
-                        onChange={handleChange}
-                        className={styles["form-input"]}
-                    />
-                    {passwordError &&
-                        (<p className='password-error' style={{ color: 'red', fontSize: '14px' }}>
-                            {passwordError}</p>)}
-                </label>
-                <br />
-                <button type="submit" className={styles["submit-button"]}>
-                    Login
-                </button>
-            </form>
-        </div>
+        <>
+            <Navigation />
+            <div className={styles["login-container"]}>
+                <h2>Login</h2>
+                {loginMsg &&
+                    (<p style={{
+                        color: 'green', fontSize: '20px', marginTop: '10px',
+                        border: '1px solid green',
+                        borderRadius: '5px'
+                    }}>
+                        {loginMsg}</p>)}
+                <form onSubmit={handleLogin}>
+                    <label className={styles["form-label"]}>
+                        Email:
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder='Email'
+                            value={loginData.email}
+                            onBlur={emailValidator}
+                            onChange={handleChange}
+                            className={styles["form-input"]}
+                        />
+                        {emailError &&
+                            (<p className='email-error' style={{ color: 'red', fontSize: '14px' }}>
+                                {emailError}</p>)}
+                    </label>
+                    <br />
+                    <label className={styles["form-label"]}>
+                        Password:
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder='Password'
+                            value={loginData.password}
+                            onBlur={passwordValidator}
+                            onChange={handleChange}
+                            className={styles["form-input"]}
+                        />
+                        {passwordError &&
+                            (<p className='password-error' style={{ color: 'red', fontSize: '14px' }}>
+                                {passwordError}</p>)}
+                    </label>
+                    <br />
+                    <button type="submit" className={styles["submit-button"]}>
+                        Login
+                    </button>
+                </form>
+            </div>
+        </>
     )
 }
 

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import { register } from '../services/authService';
+import Navigation from './Navigation';
 
 import styles from './Register.module.css'
 const Register = () => {
@@ -81,85 +82,88 @@ const Register = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <h2>Register</h2>
-            {registerMsg &&
-                (<p style={{
-                    color: 'green', fontSize: '20px', marginTop: '10px',
-                    border: '1px solid green',
-                    borderRadius: '5px'
-                }}>
-                    {registerMsg}</p>)}
-            <form onSubmit={handleRegister}>
-                <label className={styles["form-label"]}>
-                    First Name:
-                    <input
-                        type="text"
-                        name="firstName"
-                        placeholder='First Name'
-                        value={regData.firstName}
-                        onChange={handleChange}
-                        onBlur={firstNameValidator}
-                        className={styles["form-input"]}
-                    />
-                </label>
-                {firstNameError &&
-                    (<p className='name-error' style={{ color: 'red', fontSize: '14px', marginTop: '0px' }}>
-                        {firstNameError}</p>)}
-                <br />
-                <label className={styles["form-label"]}>
-                    Last Name:
-                    <input
-                        type="text"
-                        name="lastName"
-                        placeholder='Last Name'
-                        value={regData.lastName}
-                        onChange={handleChange}
-                        onBlur={lastNameValidator}
-                        className={styles["form-input"]}
-                    />
-                    {lastNameError && (<p className='name-error'
-                        style={{ color: 'red', fontSize: '14px', marginTop: '0px' }} >
-                        {lastNameError}</p>)}
-                </label>
-                <br />
-                <label className={styles["form-label"]}>
-                    Email:
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder='Email'
-                        value={regData.email}
-                        onChange={handleChange}
-                        onBlur={emailValidator}
-                        className={styles["form-input"]}
-                    />
-                    {emailError &&
-                        (<p className='email-error' style={{ color: 'red', fontSize: '14px' }}>
-                            {emailError}</p>)}
-                </label>
-                <br />
-                <label className={styles["form-label"]}>
-                    Password:
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder='Password'
-                        value={regData.password}
-                        onChange={handleChange}
-                        onBlur={passwordValidator}
-                        className={styles["form-input"]}
-                    />
-                    {passwordError &&
-                        (<p className='password-error' style={{ color: 'red', fontSize: '14px' }}>
-                            {passwordError}</p>)}
-                </label>
-                <br />
-                <button type="submit" className={styles["submit-button"]}>
-                    Register
-                </button>
-            </form>
-        </div>
+        <>
+            <Navigation />
+            <div className={styles.container}>
+                <h2>Register</h2>
+                {registerMsg &&
+                    (<p style={{
+                        color: 'green', fontSize: '20px', marginTop: '10px',
+                        border: '1px solid green',
+                        borderRadius: '5px'
+                    }}>
+                        {registerMsg}</p>)}
+                <form onSubmit={handleRegister}>
+                    <label className={styles["form-label"]}>
+                        First Name:
+                        <input
+                            type="text"
+                            name="firstName"
+                            placeholder='First Name'
+                            value={regData.firstName}
+                            onChange={handleChange}
+                            onBlur={firstNameValidator}
+                            className={styles["form-input"]}
+                        />
+                    </label>
+                    {firstNameError &&
+                        (<p className='name-error' style={{ color: 'red', fontSize: '14px', marginTop: '0px' }}>
+                            {firstNameError}</p>)}
+                    <br />
+                    <label className={styles["form-label"]}>
+                        Last Name:
+                        <input
+                            type="text"
+                            name="lastName"
+                            placeholder='Last Name'
+                            value={regData.lastName}
+                            onChange={handleChange}
+                            onBlur={lastNameValidator}
+                            className={styles["form-input"]}
+                        />
+                        {lastNameError && (<p className='name-error'
+                            style={{ color: 'red', fontSize: '14px', marginTop: '0px' }} >
+                            {lastNameError}</p>)}
+                    </label>
+                    <br />
+                    <label className={styles["form-label"]}>
+                        Email:
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder='Email'
+                            value={regData.email}
+                            onChange={handleChange}
+                            onBlur={emailValidator}
+                            className={styles["form-input"]}
+                        />
+                        {emailError &&
+                            (<p className='email-error' style={{ color: 'red', fontSize: '14px' }}>
+                                {emailError}</p>)}
+                    </label>
+                    <br />
+                    <label className={styles["form-label"]}>
+                        Password:
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder='Password'
+                            value={regData.password}
+                            onChange={handleChange}
+                            onBlur={passwordValidator}
+                            className={styles["form-input"]}
+                        />
+                        {passwordError &&
+                            (<p className='password-error' style={{ color: 'red', fontSize: '14px' }}>
+                                {passwordError}</p>)}
+                    </label>
+                    <br />
+                    <button type="submit" className={styles["submit-button"]}>
+                        Register
+                    </button>
+                </form>
+            </div>
+        </>
     )
 }
 
