@@ -34,7 +34,7 @@ const Register = () => {
         let registerAuth = await register(regData);
         setAuth(registerAuth);
         sessionStorage.setItem('accessToken', registerAuth.accessToken);
-        sessionStorage.setItem('userId', respAuth._id);
+        sessionStorage.setItem('userId', registerAuth._id);
         navigate('/');
     }
 
