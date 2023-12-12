@@ -32,10 +32,20 @@ const Register = () => {
         }
 
         let registerAuth = await register(regData);
+        if (!registerAuth) {
+            setRegisterMsg('Please use another email address!');
+            setFormData({
+                ...regData,
+                email: '',
+                password: ''
+            });
+            return;
+        }
         setAuth(registerAuth);
         sessionStorage.setItem('accessToken', registerAuth.accessToken);
         sessionStorage.setItem('userId', registerAuth._id);
         navigate('/');
+
     }
 
     const handleChange = (e) => {
