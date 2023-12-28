@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link, useParams } from 'react-router-dom';
 import * as hutsService from '../services/hutsService.js';
+import DeleteModal from './DeleteModal.jsx';
+
 import '../assets/css/screen.css'
 
 const HutDetails = () => {
 
     const [hutDetails, setHutDetails] = useState({});
     const [showDeletedBtn, setShowDeletedBtn] = useState(false);
+    const [isOpend, setIsOpend] = useState(false);
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const { id } = useParams();
@@ -22,19 +25,25 @@ const HutDetails = () => {
             })
     }, [id]);
 
-    async function onDeleteHandler() {
-        if (confirm("Are you sure you want to delete this post!")) {
-            const respStatus = await hutsService.deleteHut("DELETE", id, sessionStorage.getItem("accessToken"));
-            if (respStatus === 200) {
-                setMessage('The post is successfully deleted!');
-                setTimeout(() => {
-                    navigate('/')
-                }, 1500);
-
-            } else {
-                setMessage('Something went wrong, Please try again!');
-            }
+    async function handleDeleteConformation() {
+        const respStatus = await hutsService.deleteHut("DELETE", id, sessionStorage.getItem("accessToken"));
+        if (respStatus === 200) {
+            setMessage('The post is successfully deleted!');
+            setTimeout(() => {
+                navigate('/')
+            }, 1500);
+            setIsOpend(false);
+        } else {
+            setMessage('Something went wrong, Please try again!');
         }
+    }
+
+    function onDeleteHandler() {
+        setIsOpend(true);
+    }
+
+    function handleModalClose() {
+        setIsOpend(false);
     }
 
     return (
@@ -99,6 +108,10 @@ const HutDetails = () => {
                     </article>
                 </div>
             </main>
+            <DeleteModal
+                isOpen={isOpend}
+                onClose={handleModalClose}
+                onConfirm={handleDeleteConformation} />
         </>
     )
 }
